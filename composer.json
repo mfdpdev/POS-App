@@ -1,0 +1,12 @@
+{
+    "name": "lord/pos-app",
+    "autoload": {
+        "psr-4": {
+            "Lord\\PosApp\\": "src/"
+        }
+    },
+    "scripts": {
+      "server": "php -S localhost:8000 -t public"
+    },
+    "require": {}
+}

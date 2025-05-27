@@ -1,0 +1,33 @@
+# Direktori vendor (library hasil composer install)
+vendor/
+
+# File autoload composer yang di-generate otomatis
+composer.lock
+
+# File environment, konfigurasi sensitif
+.env
+.env.local
+.env.*.local
+
+# Direktori cache, logs, dan temporary files (jika ada)
+cache/
+logs/
+tmp/
+temp/
+
+# IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sistem file OS
+.DS_Store
+Thumbs.db
+
+# File PHPStorm (jika pakai)
+*.iml
+
+# File build / dist (jika ada)
+build/
+dist/
