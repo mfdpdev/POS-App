@@ -24,7 +24,7 @@ class AuthRepository {
     return $user;
   }
 
-  public function findByEmail(string $email): User {
+  public function findByEmail(string $email): ?User {
     $statement = $this->connection->prepare("select * from users where email = ?");
     $statement->execute([$email]);
 
@@ -35,8 +35,8 @@ class AuthRepository {
         $user->email = $row["email"];
         $user->password = $row["password"];
         $user->role = $row["role"];
-        $user->created_at = $row["created_at"];
-        $user->updated_at = $row["updated_at"];
+        $user->created_at = new \DateTime($row["created_at"]);
+        $user->updated_at = new \DateTime($row["updated_at"]);
         return $user;
       }else{
         return null;
@@ -46,7 +46,7 @@ class AuthRepository {
     }
   }
 
-  public function findById(string $id): User {
+  public function findById(string $id): ?User {
     $statement = $this->connection->prepare("select * from users where id = ?");
     $statement->execute([$id]);
 
@@ -57,8 +57,8 @@ class AuthRepository {
         $user->email = $row["email"];
         $user->password = $row["password"];
         $user->role = $row["role"];
-        $user->created_at = $row["created_at"];
-        $user->updated_at = $row["updated_at"];
+        $user->created_at = new \DateTime($row["created_at"]);
+        $user->updated_at = new \DateTime($row["updated_at"]);
         return $user;
       }else{
         return null;

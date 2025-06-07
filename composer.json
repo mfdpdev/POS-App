@@ -8,5 +8,7 @@
     "scripts": {
       "serve": "php -S localhost:8000 -t public"
     },
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
 }

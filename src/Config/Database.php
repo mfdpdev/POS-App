@@ -4,17 +4,17 @@ class Database
 {
   private static ?\PDO $pdo = null;
 
-  public static function getConnection(string $env = "dev"): \PDO
+  public static function getConnection(): \PDO
   {
     if(self::$pdo == null){
-      require_once __DIR__ . "/../../config/database.php";
+      EnvConfig::load();
 
-      $config = getDatabaseConfig();
       try {
+        $url = "pgsql:host=" . EnvConfig::get("DB_HOST") . ";port=" . EnvConfig::get("DB_PORT") . ";dbname=" . EnvConfig::get("DB_NAME");
         self::$pdo = new \PDO(
-          $config['database'][$env]['url'],
-          $config['database'][$env]['username'],
-          $config['database'][$env]['password']
+          $url,
+          EnvConfig::get("DB_USER"),
+          EnvConfig::get("DB_PASS"),
         );
         self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
       } catch (\PDOException $e) {
