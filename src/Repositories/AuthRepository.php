@@ -10,6 +10,7 @@ class AuthRepository {
     $this->connection = $connection;
   }
 
+  //ini error sepertinya
   public function save(User $user): User {
     $statement = $this->connection->prepare("INSERT INTO users(name, email, password, role, created_at, updated_at) values (?, ?, ?, ?, ?, ?)");
     $statement->execute([
@@ -31,6 +32,7 @@ class AuthRepository {
     try {
       if($row = $statement->fetch()){
         $user = new User();
+        // $user->id = $row["id"];
         $user->name = $row["name"];
         $user->email = $row["email"];
         $user->password = $row["password"];
@@ -53,6 +55,7 @@ class AuthRepository {
     try {
       if($row = $statement->fetch()){
         $user = new User();
+        // $user->id = $row["id"];
         $user->name = $row["name"];
         $user->email = $row["email"];
         $user->password = $row["password"];

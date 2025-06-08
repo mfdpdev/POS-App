@@ -11,12 +11,13 @@ class Web {
    * @param string $controller Nama controller yang menangani route
    * @param string $function Nama method dalam controller yang menangani route
    */
-  public static function add(string $method, string $path, string $controller, string $function): void {
+  public static function add(string $method, string $path, string $controller, string $function, array $middlewares): void {
     self::$routes[] = [
       'method' => $method,
       'path' => $path,
       'controller' => $controller,
       'function' => $function,
+      'middlewares' => $middlewares,
     ];
   }
 
@@ -28,6 +29,12 @@ class Web {
       $pattern = '#^' . $route["path"] . '$#';
       // if($path == $route["path"] && $method == $route["method"]){
       if(preg_match($pattern, $path, $variables) && $method == $route["method"]){
+
+        foreach($route["middlewares"] as $middleware){
+          $instance = new $middleware;
+          $instance->before();
+        }
+
         $controller = new $route["controller"];
         $function = $route["function"];
         // $controller->$function();

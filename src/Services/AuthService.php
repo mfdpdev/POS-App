@@ -13,7 +13,7 @@ class AuthService {
     $this->authRepository = $authRepository;
   }
 
-  public function signin(UserSigninRequest $request){
+  public function signin(UserSigninRequest $request): User {
 
     $this->validateUserSigninRequest($request);
 
@@ -23,7 +23,7 @@ class AuthService {
     }
 
     if(password_verify($request->password, $user->password)){
-      return true;
+      return $user;
     }else{
       throw new \Exception("Email or Password is wrong!");
     }

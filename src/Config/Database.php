@@ -10,9 +10,8 @@ class Database
       EnvConfig::load();
 
       try {
-        $url = "pgsql:host=" . EnvConfig::get("DB_HOST") . ";port=" . EnvConfig::get("DB_PORT") . ";dbname=" . EnvConfig::get("DB_NAME");
         self::$pdo = new \PDO(
-          $url,
+          "pgsql:host=" . EnvConfig::get("DB_HOST") . ";port=" . EnvConfig::get("DB_PORT") . ";dbname=" . EnvConfig::get("DB_NAME"),
           EnvConfig::get("DB_USER"),
           EnvConfig::get("DB_PASS"),
         );

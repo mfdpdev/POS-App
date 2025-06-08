@@ -3,7 +3,7 @@
 use Lord\PosApp\Views\View;
 use Lord\PosApp\Models\{UserSigninRequest, UserSignupRequest};
 use Lord\PosApp\Config\Database;
-use Lord\PosApp\Services\{AuthService};
+use Lord\PosApp\Services\{AuthService, SessionService};
 use Lord\PosApp\Repositories\{AuthRepository};
 
 class AuthController {
@@ -32,7 +32,8 @@ class AuthController {
     $request->password = $_POST["password"];
 
     try {
-      $this->authService->signin($request);
+      $response = $this->authService->signin($request);
+      SessionService::set("user_email", $response->email);
       View::redirect('/');
     } catch (\Exception $err) {
       View::render('Auth/signin', [
@@ -67,5 +68,10 @@ class AuthController {
         "error" => $err->getMessage()
       ]);
     }
+  }
+
+  public function logout(){
+    SessionService::forget("user_email");
+    View::redirect("/auth/signin");
   }
 }
